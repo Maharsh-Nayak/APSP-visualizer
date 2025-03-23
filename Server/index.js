@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "http://localhost:5173",
-  //origin: "https://inquiro-1.onrender.com",
+  // origin: "http://localhost:5173",
+  origin: "https://apsp-visualizer-frontend.onrender.com",
   credentials: true,
 }));
 
