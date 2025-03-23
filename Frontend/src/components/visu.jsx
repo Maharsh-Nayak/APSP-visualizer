@@ -12,7 +12,7 @@ const Visu = () => {
     console.log(matrix);
 
     try {
-      const res = await axios.post('/api/visualize', { matrix }, {
+      const res = await axios.post('https://apsp-visualizer-backed.onrender.com/api/visualize', { matrix }, {
         headers: { 'Content-Type': 'application/json' }
       });
 
