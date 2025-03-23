@@ -1,0 +1,15 @@
+.example {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.graph-container {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
