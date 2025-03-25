@@ -16,40 +16,67 @@ app.use(cors({
 }));
 
 app.post('/api/visualize', (req, res) => {
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
-  const {matrix}=req.body;
-  console.log(matrix);
+  
+  const { matrix } = req.body;
 
-  const m1 = matrix.split('\n').map(row => row.trim().split(/\s+/).map(num => (num==='inf' ? Infinity : Number(num))));
-  let size=m1[0].length;
+  console.log(typeof matrix);
+
+  // Parsing matrix input into object array with { value, changed }
+  const m1 = matrix.split('\n').map(row => row.trim().split(/\s+/).map(num => ({
+    value: (num === 'INF' ? Infinity : Number(num)),
+    changed: false
+  })));
+  
+  const size = m1[0].length;
 
   console.log(m1);
 
-  if(m1.every(res => res.length === size)){
+  if (m1.every(row => row.length === size)) {
     console.log("array is proper");
 
     const matrices = [];
-    matrices.push(m1);
 
+    // Correct deep clone function
+    const deepCloneMatrix = (matrix) => 
+      matrix.map(row => row.map(cell => ({ ...cell }))); 
+
+    matrices.push(deepCloneMatrix(m1));  // Add initial state
+
+    // Apply APSP (Floyd-Warshall) algorithm
     for (let k = 0; k < size; k++) {
-        for (let i = 0; i < size; i++) {
-            for (let j = 0; j < size; j++) {
-                m1[i][j] = Math.min(m1[i][j], m1[i][k] + m1[k][j]);
-            }
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          let newv = m1[i][k].value + m1[k][j].value;
+          if (m1[i][j].value > newv) {
+            m1[i][j].value = newv;
+            m1[i][j].changed = true;
+          }
         }
-        matrices.push(m1);
+      }
+      matrices.push(deepCloneMatrix(m1));  // Add clone at each step
     }
 
-    res.status(200).json({matrices});
-  }
-  else{
-    console.log("not proper array");
-    res.status(500);
-  }
+    console.log("Final matrices:", matrices);
 
-})
+    // Replace Infinity with 'INF' for the response
+    const replaceInfinity = (matrix) => 
+      matrix.map(row => 
+        row.map(cell => ({
+          ...cell,
+          value: cell.value === Infinity ? 'INF' : cell.value
+        }))
+      );
+
+    const matricesWithINF = matrices.map(replaceInfinity);
+
+    res.status(200).json({ matrices: matricesWithINF });
+
+  } else {
+    console.log("Invalid matrix format");
+    res.status(500).send("Invalid matrix format");
+  }
+});
 
 app.listen(port, () => {
-	console.log('server is on');
+  console.log(`Server is running on port ${port}`);
 });

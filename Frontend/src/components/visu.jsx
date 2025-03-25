@@ -93,9 +93,9 @@ const Visu = () => {
                           {row.map((num, colIndex) => (
                             <td
                               key={colIndex}
-                              className="border border-gray-400 px-6 py-4 text-center text-lg"
+                              className={`border border-gray-400 px-6 py-4 text-center text-lg ${num.changed===true ? "bg-blue-800" : "bg-grey-800"}`}
                             >
-                              {num === Infinity ? "∞" : num}
+                              {num.value === Infinity ? "INF" : num.value}
                             </td>
                           ))}
                         </tr>
