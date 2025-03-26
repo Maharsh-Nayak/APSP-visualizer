@@ -21,7 +21,6 @@ app.post('/api/visualize', (req, res) => {
 
   console.log(typeof matrix);
 
-  // Parsing matrix input into object array with { value, changed }
   const m1 = matrix.split('\n').map(row => row.trim().split(/\s+/).map(num => ({
     value: (num === 'INF' ? Infinity : Number(num)),
     changed: false
@@ -36,13 +35,11 @@ app.post('/api/visualize', (req, res) => {
 
     const matrices = [];
 
-    // Correct deep clone function
     const deepCloneMatrix = (matrix) => 
       matrix.map(row => row.map(cell => ({ ...cell }))); 
 
     matrices.push(deepCloneMatrix(m1));  // Add initial state
 
-    // Apply APSP (Floyd-Warshall) algorithm
     for (let k = 0; k < size; k++) {
       for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
