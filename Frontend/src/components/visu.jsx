@@ -12,6 +12,8 @@ const Visu = () => {
   const handleMatrixInput = async () => {
     console.log(matrix);
 
+    // https://apsp-visualizer-backed.onrender.com
+
     try {
       const res = await axios.post('https://apsp-visualizer-backed.onrender.com/api/visualize', { matrix }, {
         headers: { 'Content-Type': 'application/json' }
@@ -123,6 +125,16 @@ const Visu = () => {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="mt-16 text-center">
+        <p className="text-lg text-white-300">Have any suggestions or feedback?</p>
+        <a
+          href="/feedback"
+          className="mt-4 inline-block bg-yellow-300 hover:bg-yellow-400 font-bold py-3 px-6 rounded-lg transition"
+        >
+          Share Your Feedback
+        </a>
       </div>
     </div>
   );

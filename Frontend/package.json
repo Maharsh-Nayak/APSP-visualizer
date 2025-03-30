@@ -17,6 +17,7 @@
     "react-dom": "^19.0.0",
     "react-graph-vis": "^1.0.7",
     "react-router-dom": "^7.4.0",
+    "react-syntax-highlighter": "^15.6.1",
     "react-toastify": "^11.0.5",
     "vis-network": "^9.1.9"
   },
