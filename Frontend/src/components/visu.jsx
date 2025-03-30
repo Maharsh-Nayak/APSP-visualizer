@@ -129,12 +129,12 @@ const Visu = () => {
 
       <div className="mt-16 text-center">
         <p className="text-lg text-white-300">Have any suggestions or feedback?</p>
-        <a
-          href="/feedback"
+        <Link
+          to="/feedback"
           className="mt-4 inline-block bg-yellow-300 hover:bg-yellow-400 font-bold py-3 px-6 rounded-lg transition"
         >
           Share Your Feedback
-        </a>
+        </Link>
       </div>
     </div>
   );
